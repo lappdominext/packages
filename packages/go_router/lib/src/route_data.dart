@@ -364,6 +364,7 @@ class TypedRoute<T extends RouteData> {
 enum ParamsKind {
   camelCase,
   kebabCase,
+  snakeCase,
 }
 
 /// A superclass for each typed go route descendant

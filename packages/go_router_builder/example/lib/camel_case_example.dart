@@ -38,8 +38,12 @@ class Extra {
   path: '/home',
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<CamelCaseRoute>(
-      // paramsKind: ParamsKind.camelCase,
+      paramsKind: ParamsKind.camelCase,
       path: '/camelCase',
+    ),
+    TypedGoRoute<SnakeCaseRoute>(
+      paramsKind: ParamsKind.snakeCase,
+      path: '/snake_case',
     ),
   ],
 )
@@ -90,6 +94,35 @@ class CamelCaseExample extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text('Camel Case Example'),
+        ],
+      ),
+    );
+  }
+}
+
+class SnakeCaseRoute extends GoRouteData {
+  const SnakeCaseRoute(this.exampleId, this.exampleName, this.exampleOthers);
+
+  final int exampleId;
+  final String exampleName;
+  final String exampleOthers;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const CamelCaseExample();
+}
+
+class SnakeCaseExample extends StatelessWidget {
+  const SnakeCaseExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Snake Case')),
+      body: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('Snake Case Example'),
         ],
       ),
     );
