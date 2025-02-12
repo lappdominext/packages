@@ -404,51 +404,56 @@ extension $UriRouteExtension on UriRoute {
 extension $IterableRouteExtension on IterableRoute {
   static IterableRoute _fromState(GoRouterState state) => IterableRoute(
         intIterableField:
-            state.uri.queryParametersAll['intIterableField']?.map(int.parse),
-        doubleIterableField: state.uri.queryParametersAll['doubleIterableField']
+            state.uri.queryParametersAll['int-iterable-field']?.map(int.parse),
+        doubleIterableField: state
+            .uri.queryParametersAll['double-iterable-field']
             ?.map(double.parse),
-        stringIterableField:
-            state.uri.queryParametersAll['stringIterableField']?.map((e) => e),
-        boolIterableField: state.uri.queryParametersAll['boolIterableField']
+        stringIterableField: state
+            .uri.queryParametersAll['string-iterable-field']
+            ?.map((e) => e),
+        boolIterableField: state.uri.queryParametersAll['bool-iterable-field']
             ?.map(_$boolConverter),
-        enumIterableField: state.uri.queryParametersAll['enumIterableField']
+        enumIterableField: state.uri.queryParametersAll['enum-iterable-field']
             ?.map(_$SportDetailsEnumMap._$fromName),
         enumOnlyInIterableField: state
-            .uri.queryParametersAll['enumOnlyInIterableField']
+            .uri.queryParametersAll['enum-only-in-iterable-field']
             ?.map(_$CookingRecipeEnumMap._$fromName),
-        intListField: state.uri.queryParametersAll['intListField']
+        intListField: state.uri.queryParametersAll['int-list-field']
             ?.map(int.parse)
             .toList(),
-        doubleListField: state.uri.queryParametersAll['doubleListField']
+        doubleListField: state.uri.queryParametersAll['double-list-field']
             ?.map(double.parse)
             .toList(),
-        stringListField: state.uri.queryParametersAll['stringListField']
+        stringListField: state.uri.queryParametersAll['string-list-field']
             ?.map((e) => e)
             .toList(),
-        boolListField: state.uri.queryParametersAll['boolListField']
+        boolListField: state.uri.queryParametersAll['bool-list-field']
             ?.map(_$boolConverter)
             .toList(),
-        enumListField: state.uri.queryParametersAll['enumListField']
+        enumListField: state.uri.queryParametersAll['enum-list-field']
             ?.map(_$SportDetailsEnumMap._$fromName)
             .toList(),
-        enumOnlyInListField: state.uri.queryParametersAll['enumOnlyInListField']
+        enumOnlyInListField: state
+            .uri.queryParametersAll['enum-only-in-list-field']
             ?.map(_$CookingRecipeEnumMap._$fromName)
             .toList(),
-        intSetField:
-            state.uri.queryParametersAll['intSetField']?.map(int.parse).toSet(),
-        doubleSetField: state.uri.queryParametersAll['doubleSetField']
+        intSetField: state.uri.queryParametersAll['int-set-field']
+            ?.map(int.parse)
+            .toSet(),
+        doubleSetField: state.uri.queryParametersAll['double-set-field']
             ?.map(double.parse)
             .toSet(),
-        stringSetField: state.uri.queryParametersAll['stringSetField']
+        stringSetField: state.uri.queryParametersAll['string-set-field']
             ?.map((e) => e)
             .toSet(),
-        boolSetField: state.uri.queryParametersAll['boolSetField']
+        boolSetField: state.uri.queryParametersAll['bool-set-field']
             ?.map(_$boolConverter)
             .toSet(),
-        enumSetField: state.uri.queryParametersAll['enumSetField']
+        enumSetField: state.uri.queryParametersAll['enum-set-field']
             ?.map(_$SportDetailsEnumMap._$fromName)
             .toSet(),
-        enumOnlyInSetField: state.uri.queryParametersAll['enumOnlyInSetField']
+        enumOnlyInSetField: state
+            .uri.queryParametersAll['enum-only-in-set-field']
             ?.map(_$CookingRecipeEnumMap._$fromName)
             .toSet(),
       );
@@ -531,58 +536,60 @@ extension $IterableRouteWithDefaultValuesExtension
     on IterableRouteWithDefaultValues {
   static IterableRouteWithDefaultValues _fromState(GoRouterState state) =>
       IterableRouteWithDefaultValues(
-        intIterableField:
-            state.uri.queryParametersAll['intIterableField']?.map(int.parse) ??
-                const <int>[0],
-        doubleIterableField: state.uri.queryParametersAll['doubleIterableField']
+        intIterableField: state.uri.queryParametersAll['int-iterable-field']
+                ?.map(int.parse) ??
+            const <int>[0],
+        doubleIterableField: state
+                .uri.queryParametersAll['double-iterable-field']
                 ?.map(double.parse) ??
             const <double>[0, 1, 2],
-        stringIterableField: state.uri.queryParametersAll['stringIterableField']
+        stringIterableField: state
+                .uri.queryParametersAll['string-iterable-field']
                 ?.map((e) => e) ??
             const <String>['defaultValue'],
-        boolIterableField: state.uri.queryParametersAll['boolIterableField']
+        boolIterableField: state.uri.queryParametersAll['bool-iterable-field']
                 ?.map(_$boolConverter) ??
             const <bool>[false],
-        enumIterableField: state.uri.queryParametersAll['enumIterableField']
+        enumIterableField: state.uri.queryParametersAll['enum-iterable-field']
                 ?.map(_$SportDetailsEnumMap._$fromName) ??
             const <SportDetails>[SportDetails.tennis, SportDetails.hockey],
-        intListField: state.uri.queryParametersAll['intListField']
+        intListField: state.uri.queryParametersAll['int-list-field']
                 ?.map(int.parse)
                 .toList() ??
             const <int>[0],
-        doubleListField: state.uri.queryParametersAll['doubleListField']
+        doubleListField: state.uri.queryParametersAll['double-list-field']
                 ?.map(double.parse)
                 .toList() ??
             const <double>[1, 2, 3],
-        stringListField: state.uri.queryParametersAll['stringListField']
+        stringListField: state.uri.queryParametersAll['string-list-field']
                 ?.map((e) => e)
                 .toList() ??
             const <String>['defaultValue0', 'defaultValue1'],
-        boolListField: state.uri.queryParametersAll['boolListField']
+        boolListField: state.uri.queryParametersAll['bool-list-field']
                 ?.map(_$boolConverter)
                 .toList() ??
             const <bool>[true],
-        enumListField: state.uri.queryParametersAll['enumListField']
+        enumListField: state.uri.queryParametersAll['enum-list-field']
                 ?.map(_$SportDetailsEnumMap._$fromName)
                 .toList() ??
             const <SportDetails>[SportDetails.football],
-        intSetField: state.uri.queryParametersAll['intSetField']
+        intSetField: state.uri.queryParametersAll['int-set-field']
                 ?.map(int.parse)
                 .toSet() ??
             const <int>{0, 1},
-        doubleSetField: state.uri.queryParametersAll['doubleSetField']
+        doubleSetField: state.uri.queryParametersAll['double-set-field']
                 ?.map(double.parse)
                 .toSet() ??
             const <double>{},
-        stringSetField: state.uri.queryParametersAll['stringSetField']
+        stringSetField: state.uri.queryParametersAll['string-set-field']
                 ?.map((e) => e)
                 .toSet() ??
             const <String>{'defaultValue'},
-        boolSetField: state.uri.queryParametersAll['boolSetField']
+        boolSetField: state.uri.queryParametersAll['bool-set-field']
                 ?.map(_$boolConverter)
                 .toSet() ??
             const <bool>{true, false},
-        enumSetField: state.uri.queryParametersAll['enumSetField']
+        enumSetField: state.uri.queryParametersAll['enum-set-field']
                 ?.map(_$SportDetailsEnumMap._$fromName)
                 .toSet() ??
             const <SportDetails>{SportDetails.hockey},

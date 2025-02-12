@@ -328,7 +328,7 @@ class _TypeHelperIterable extends _TypeHelperWithHelper {
 
       return '''
 state.uri.queryParametersAll[
-        ${escapeDartString(parameterElement.name)}]
+        ${escapeDartString(parameterElement.name.formatKindOf(kind))}]
         ?.map($entriesTypeDecoder)$iterableCaster$fallBack''';
     }
     return '''
