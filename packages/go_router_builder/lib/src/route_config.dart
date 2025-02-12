@@ -211,7 +211,7 @@ ParamsKind _kindOf(String kindName) {
   }
 }
 
-/// Returns the [String] representation of the [ParamsKind] for the given [kind].
+/// Returns the [String] representation of the [ParamsKind].
 extension CaseFormatParamsKind on String {
   /// Returns the [String] representation of the [ParamsKind] for the given [kind].
   String formatKindOf(ParamsKind kind) {
@@ -240,7 +240,7 @@ class GoRouteConfig extends RouteBaseConfig {
   /// The path of the GoRoute to be created by this configuration.
   final String path;
 
-  /// The path of the GoRoute to be created by this configuration.
+  /// The kind of parameters.
   final ParamsKind kind;
 
   /// The name of the GoRoute to be created by this configuration.

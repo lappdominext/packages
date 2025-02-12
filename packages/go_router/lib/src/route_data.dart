@@ -361,9 +361,15 @@ class TypedRoute<T extends RouteData> {
   const TypedRoute();
 }
 
+/// The kind of parameters to use in the route.
 enum ParamsKind {
+  /// Use Camel Case for the route parameters.
   camelCase,
+
+  /// Use Kebab Case for the route parameters.
   kebabCase,
+
+  /// Use Snake Case for the route parameters.
   snakeCase,
 }
 
@@ -387,7 +393,7 @@ class TypedGoRoute<T extends GoRouteData> extends TypedRoute<T> {
 
   /// The path that corresponds to this route.
   ///
-  /// See [GoRoute.paramsKind].
+  /// See [ParamsKind].
   ///
   ///
   final ParamsKind paramsKind;
