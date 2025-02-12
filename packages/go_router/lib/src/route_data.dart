@@ -361,12 +361,18 @@ class TypedRoute<T extends RouteData> {
   const TypedRoute();
 }
 
+enum ParamsKind {
+  camelCase,
+  kebabCase,
+}
+
 /// A superclass for each typed go route descendant
 @Target(<TargetKind>{TargetKind.library, TargetKind.classType})
 class TypedGoRoute<T extends GoRouteData> extends TypedRoute<T> {
   /// Default const constructor
   const TypedGoRoute({
     required this.path,
+    this.paramsKind = ParamsKind.kebabCase,
     this.name,
     this.routes = const <TypedRoute<RouteData>>[],
   });
@@ -377,6 +383,13 @@ class TypedGoRoute<T extends GoRouteData> extends TypedRoute<T> {
   ///
   ///
   final String path;
+
+  /// The path that corresponds to this route.
+  ///
+  /// See [GoRoute.paramsKind].
+  ///
+  ///
+  final ParamsKind paramsKind;
 
   /// The name that corresponds to this route.
   /// Used by Analytics services such as Firebase Analytics

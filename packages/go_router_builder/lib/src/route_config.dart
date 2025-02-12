@@ -187,10 +187,50 @@ class StatefulShellBranchConfig extends RouteBaseConfig {
   String get dataConvertionFunctionName => r'$branch';
 }
 
+/// Enum for the different kinds of parameters.
+enum ParamsKind {
+  /// camel case
+  camelCase,
+
+  /// snake case
+  snakeCase,
+
+  /// kebab case
+  kebabCase,
+}
+
+/// Returns the [ParamsKind] for the given [kindName].
+ParamsKind _kindOf(String kindName) {
+  switch (kindName) {
+    case 'camelCase':
+      return ParamsKind.camelCase;
+    case 'snakeCase':
+      return ParamsKind.snakeCase;
+    default:
+      return ParamsKind.kebabCase;
+  }
+}
+
+/// Returns the [String] representation of the [ParamsKind] for the given [kind].
+extension CaseFormatParamsKind on String {
+  /// Returns the [String] representation of the [ParamsKind] for the given [kind].
+  String formatKindOf(ParamsKind kind) {
+    switch (kind) {
+      case ParamsKind.camelCase:
+        return camel;
+      case ParamsKind.snakeCase:
+        return snake;
+      case ParamsKind.kebabCase:
+        return kebab;
+    }
+  }
+}
+
 /// The configuration to generate class declarations for a GoRouteData.
 class GoRouteConfig extends RouteBaseConfig {
   GoRouteConfig._({
     required this.path,
+    required this.kind,
     required this.name,
     required this.parentNavigatorKey,
     required super.routeDataClass,
@@ -199,6 +239,9 @@ class GoRouteConfig extends RouteBaseConfig {
 
   /// The path of the GoRoute to be created by this configuration.
   final String path;
+
+  /// The path of the GoRoute to be created by this configuration.
+  final ParamsKind kind;
 
   /// The name of the GoRoute to be created by this configuration.
   final String? name;
@@ -275,7 +318,8 @@ class GoRouteConfig extends RouteBaseConfig {
         );
       }
     }
-    final String fromStateExpression = decodeParameter(element, _pathParams);
+    final String fromStateExpression =
+        decodeParameter(element, _pathParams, kind);
 
     if (element.isPositional) {
       return '$fromStateExpression,';
@@ -328,7 +372,7 @@ class GoRouteConfig extends RouteBaseConfig {
       if (conditions.isNotEmpty) {
         line = 'if (${conditions.join(' && ')}) ';
       }
-      line += '${escapeDartString(parameterName.kebab)}: '
+      line += '${escapeDartString(parameterName.formatKindOf(kind))}: '
           '${_encodeFor(parameterName)},';
 
       buffer.writeln(line);
@@ -410,7 +454,8 @@ extension $_extensionName on $_className {
         enumParamTypes.add(potentialEnumType as InterfaceType);
       }
     }
-    return enumParamTypes.map<String>(_enumMapConst);
+    return enumParamTypes
+        .map<String>((InterfaceType e) => _enumMapConst(e, kind));
   }
 
   @override
@@ -544,6 +589,10 @@ abstract class RouteBaseConfig {
         );
       case 'TypedGoRoute':
         final ConstantReader pathValue = reader.read('path');
+        final String? kindValue =
+            (reader.read('paramsKind').objectValue.variable as FieldElement?)
+                ?.displayName;
+
         if (pathValue.isNull) {
           throw InvalidGenerationSourceError(
             'Missing `path` value on annotation.',
@@ -552,6 +601,7 @@ abstract class RouteBaseConfig {
         }
         final ConstantReader nameValue = reader.read('name');
         value = GoRouteConfig._(
+          kind: _kindOf(kindValue ?? '--'),
           path: pathValue.stringValue,
           name: nameValue.isNull ? null : nameValue.stringValue,
           routeDataClass: classElement,
@@ -721,7 +771,7 @@ $routeDataClassName.$dataConvertionFunctionName(
   Iterable<String> classDeclarations();
 }
 
-String _enumMapConst(InterfaceType type) {
+String _enumMapConst(InterfaceType type, ParamsKind kind) {
   assert(type.isEnum);
 
   final String enumName = type.element.name;
@@ -731,7 +781,7 @@ String _enumMapConst(InterfaceType type) {
   for (final FieldElement enumField in type.element.fields
       .where((FieldElement element) => element.isEnumConstant)) {
     buffer.writeln(
-      '$enumName.${enumField.name}: ${escapeDartString(enumField.name.kebab)},',
+      '$enumName.${enumField.name}: ${escapeDartString(enumField.name.formatKindOf(kind))},',
     );
   }
 
